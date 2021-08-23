@@ -70,7 +70,7 @@ namespace AGLW_CSharp_BasicChatClientSample
 
             // GameSession gameSession = await CreateGameSessionAsync();
             var request = new CreateGameSessionRequest();
-            request.FleetId = "fleet-123";
+            request.FleetId = "fleet-fakeId";
             request.CreatorId = playerId;
             request.MaximumPlayerSessionCount = 1;
 
