@@ -46,7 +46,16 @@ namespace AGLW_CSharp_BasicChatClientSample
             Console.WriteLine($"Client : playerId {playerId}");
 
             // Create GameLift Local client
-            gameLiftClient = new AmazonGameLiftClient("fakeAccessKeyId", "fakeSecretAccessKey", new AmazonGameLiftConfig() { ServiceURL = "http://localhost:9080" });
+            // gameLiftClient = new AmazonGameLiftClient("fakeAccessKeyId", "fakeSecretAccessKey", new AmazonGameLiftConfig() { ServiceURL = "http://localhost:9080" });
+
+            // Initialize the Amazon Cognito credentials provider
+            CognitoAWSCredentials credentials = new CognitoAWSCredentials(
+                "ap-northeast-1:your_identity_pool_id", // Identity pool ID
+                RegionEndpoint.APNortheast1 // Region
+            );
+
+            // Create Amazon GameLift client
+            gameLiftClient = new AmazonGameLiftClient(credentials, RegionEndpoint.APNortheast1);
         }
 
         public void Start()
@@ -70,7 +79,7 @@ namespace AGLW_CSharp_BasicChatClientSample
 
             // GameSession gameSession = await CreateGameSessionAsync();
             var request = new CreateGameSessionRequest();
-            request.FleetId = "fleet-fakeId";
+            request.FleetId = "fleet-your_fleet_id";
             request.CreatorId = playerId;
             request.MaximumPlayerSessionCount = 1;
 
